@@ -1,0 +1,24 @@
+{
+  "name": "smartapply",
+  "version": "0.0.0",
+  "description": "app for organizing and automating job application",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start",
+    "start": "npm run serve | npm run dev",
+    "serve": "./node_modules/.bin/http-server -p 8080",
+    "dev": "webpack-dev-server --progress --colors --port 8090"
+  },
+  "author": "Jason Gonzales",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^0.13.2",
+    "webpack": "^1.8.11"
+  },
+  "devDependencies": {
+    "webpack": "^1.8.11",
+    "webpack-dev-server": "^1.8.2",
+    "jsx-loader": "^0.13.2",
+    "http-server": "^0.8.0"
+  }
+}
