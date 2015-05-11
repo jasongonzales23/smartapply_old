@@ -1,14 +1,22 @@
 'use strict'
 var React = require('react');
 var Router = require('react-router');
-//var Hello = require('./Hello');
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
+var Firebase = require('firebase')
+var firebaseRef = new Firebase('https://resplendent-heat-940.firebaseio.com/');
 
 var requireAuth = (Component) => {
   return class Authenticated extends React.Component {
     static willTransitionTo(transition) {
       if (!auth.loggedIn()) {
-        transition.redirect('/login', {}, {'nextPath' : transition.path});
+        firebaseRef.authWithOAuthPopup("facebook", function(error, authData) {
+          if (error) {
+            console.log("Login Failed!", error);
+          } else {
+            console.log("Authenticated successfully with payload:", authData);
+          }
+        });
+        //transition.redirect('/login', {}, {'nextPath' : transition.path});
       }
     }
     render () {
