@@ -3,20 +3,21 @@ var React = require('react');
 var Router = require('react-router');
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 var Firebase = require('firebase')
-var firebaseRef = new Firebase('https://resplendent-heat-940.firebaseio.com/');
+var ref = new Firebase('https://resplendent-heat-940.firebaseio.com/');
+var cachedUser = null;
 
 var requireAuth = (Component) => {
   return class Authenticated extends React.Component {
     static willTransitionTo(transition) {
       if (!auth.loggedIn()) {
-        firebaseRef.authWithOAuthPopup("facebook", function(error, authData) {
+        ref.authWithOAuthPopup("facebook", function(error, authData) {
           if (error) {
             console.log("Login Failed!", error);
           } else {
+            transition.redirect('/login', {}, {'nextPath' : transition.path});
             console.log("Authenticated successfully with payload:", authData);
           }
         });
-        //transition.redirect('/login', {}, {'nextPath' : transition.path});
       }
     }
     render () {
@@ -27,7 +28,15 @@ var requireAuth = (Component) => {
 
 var auth = {
   loggedIn: function() {
-    return false;
+    return cachedUser && true || ref.getAuth() || false;
+  },
+
+  store: function(authPayload) {
+    localStorage.setItem("auth");
+  },
+
+  dataCallback: function(authData) {
+
   }
 };
 
