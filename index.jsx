@@ -5,41 +5,33 @@ var { Route, DefaultRoute, RouteHandler, Link } = Router;
 var Firebase = require('firebase')
 var ref = new Firebase('https://resplendent-heat-940.firebaseio.com/');
 var AltContainer = require('alt/AltContainer');
-var requireAuth = require('./utils/auth');
 
-var Login = React.createClass({
-  render () {
-    return (
-      <div>
-        <h2>Login</h2>
-        <Link to="jobs">Jobs</Link>
-      </div>
-    );
-  }
-});
+var RequireAuth = require('./components/RequireAuth');
+var Login = require('./components/Login');
+var Jobs = require('./components/Jobs');
 
-var Jobs = requireAuth(class extends React.Component {
-  render () {
-    return (
-      <div>
-        <h2>Jobs</h2>
-        <Link to="login">Login</Link>
-      </div>
-    );
-  }
-});
+var UserStore = require('./stores/UserStore');
 
 var App = React.createClass({
   getInitialState () {
-    return {
-      name: ""
-    }
+    return UserStore.getState();
+  },
+
+  componentDidMount() {
+    UserStore.listen(this.onChange);
+  },
+
+  componentWillUnmount() {
+    UserStore.unlisten(this.onChange);
+  },
+
+  onChange(state) {
+    this.setState(state);
   },
 
   render () {
     return (
       <div>
-        <h1>sup {this.state.name}</h1>
         <RouteHandler/>
       </div>
     );
