@@ -6,8 +6,8 @@ var Login = React.createClass({
   render () {
     return (
       <div>
-        <h2>Login</h2>
         <Link to="jobs">Jobs</Link>
+        <h2>Login</h2>
       </div>
     );
   }

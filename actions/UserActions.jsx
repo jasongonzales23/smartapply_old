@@ -13,6 +13,11 @@ class UserActions {
  fetchUser() {
    this.dispatch();
  }
+
+ checkForUserRemote() {
+   this.dispatch();
+  
+ }
 }
 
 module.exports = alt.createActions(UserActions);

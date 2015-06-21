@@ -16,6 +16,7 @@ var auth = {
 
   dataCallback: function(authData) {
     UserActions.updateUser(authData);
+    UserActions.checkForUserRemote(authData);
   }
 };
 
@@ -32,7 +33,6 @@ var RequireAuth = (Component) => {
             transition.redirect('/login', {}, {'nextPath' : transition.path});
             console.log("Authenticated successfully with payload:", authData);
             auth.dataCallback(authData);
-
           }
         });
       } else {
