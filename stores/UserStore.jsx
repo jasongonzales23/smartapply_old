@@ -30,11 +30,29 @@ class UserStore {
   handleCheckForUserRemote() {
     var Firebase = require('firebase')
     var ref = new Firebase('https://resplendent-heat-940.firebaseio.com/');
-    var _id = this.user.uid;
+    var uid = this.user.uid;
+    var userData = this.user;
 
     //get the stuff from firebase, this is bad, move it out to a fetcher
-    ref.once('value', function(snap) {
-      console.log(snap.val()); 
+    var userRef = ref.child('users').child(uid);
+    var usersRef = ref.child('users');
+    userRef.once('value', function(snap) {
+      var user = snap.val();
+
+      if(!user) {
+        var userObj = {};
+        userObj[uid] = userData;
+        usersRef.update(userObj, function(err) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('data saved successfully!');
+          }
+
+        });
+      } else {
+        console.log(user);
+      }
     });
 
   }
