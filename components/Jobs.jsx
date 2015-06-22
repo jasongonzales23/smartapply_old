@@ -34,7 +34,6 @@ var UserJobs = React.createClass({
   },
 
   onChange(state) {
-    console.log(state);
     this.setState(state);
   },
 
@@ -43,7 +42,7 @@ var UserJobs = React.createClass({
       <ul>
         {this.state.jobs.map((job) => {
           return (
-            <li>{job.name}</li>
+            <li key={job.id}>{job.name}</li>
           );
         })}
       </ul>

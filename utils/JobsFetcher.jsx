@@ -5,7 +5,6 @@ var mockData = [
 
 var JobsFetcher = {
   fetch: function() {
-    console.log('job fetcher!');
     return new Promise(function (resolve, reject) {
       setTimeout(function () {
         resolve(mockData);

@@ -14,7 +14,6 @@ class UserStore {
   }
 
   handleUpdateUser(user) {
-    console.log("update user ", user);
     this.user = user;
     this.errorMessage = null;
   }
@@ -51,7 +50,7 @@ class UserStore {
 
         });
       } else {
-        console.log(user);
+        //console.log(user);
       }
     });
 

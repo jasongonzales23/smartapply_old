@@ -7,7 +7,6 @@ class UserActions {
 
   userFailed(err) {
     this.dispatch(err);
-    console.log(err);
   }
 
  fetchUser() {
