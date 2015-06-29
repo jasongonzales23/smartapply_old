@@ -36,10 +36,6 @@ class JobActions {
 
     this.dispatch(jobObj);
     JobSource.push(jobObj)
-     .then((jobs) => {
-       //console.table(jobs);
-       //this.actions.handleUpdateJobs(jobs);
-     });
   }
 }
 
