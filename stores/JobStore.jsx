@@ -4,7 +4,7 @@ var JobSource = require('../sources/JobSource');
 
 class JobStore {
   constructor() {
-    this.jobs = [];
+    this.jobs = {};
     this.errorMessage = null;
 
     this.bindListeners({
@@ -16,13 +16,13 @@ class JobStore {
   }
 
   handleUpdateJobs(jobs) {
-    //console.table(jobs);
     this.jobs = jobs;
     this.errorMessage = null;
   }
 
-  handleFetchJobs() {
-    this.jobs = [];
+  handleFetchJobs(jobs) {
+    this.jobs = {};
+    this.errorMessage = null;
   }
 
   handleJobsFailed(errorMessage) {
@@ -30,7 +30,7 @@ class JobStore {
   }
 
   handleCreateJob(jobObj) {
-    this.jobs.push(jobObj);
+    this.jobs[jobObj.id] = jobObj;
   }
 };
 

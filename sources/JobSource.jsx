@@ -1,32 +1,27 @@
-var Firebase = require('firebase')
-var baseRef = new Firebase('https://resplendent-heat-940.firebaseio.com/');
+var Firebase = require('firebase');
+
+var ref = new Firebase('https://resplendent-heat-940.firebaseio.com/');
+
 var mockData = [
   {id: 0, name: "AliveCor"},
   {id: 1, name: "Bluebox"}
 ];
 
-var JobsFetcher = {
+var JobSource = {
   fetch: function() {
-    return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        resolve(mockData);
-      }, 250);
+    return new Promise(function(resolve, reject) {
+      ref.child('jobs').once('value', function(snap) {
+        var jobs = snap.val();
+        console.log(jobs);
+        resolve(jobs);
+      });
     });
   },
 
   push: function(job) {
-    //send the new job to the server
-    //if success, call a success action,
-    //maybe kick off a new fetch ultimately?
-    //if error, handle it
-    return new Promise(function (resolve, reject) {
-      setTimeout(function () {
-        console.table(mockData);
-        resolve(mockData);
-      }, 250);
-    });
+    ref.child('jobs').child(job.id).update(job);
   }
 
 }
 
-module.exports = JobsFetcher;
+module.exports = JobSource;

@@ -33,8 +33,8 @@ class UserStore {
     var userData = this.user;
 
     //get the stuff from firebase, this is bad, move it out to a fetcher
-    var userRef = ref.child('users').child(uid);
     var usersRef = ref.child('users');
+    var userRef = usersRef.child(uid);
     userRef.once('value', function(snap) {
       var user = snap.val();
 

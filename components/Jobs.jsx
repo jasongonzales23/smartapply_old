@@ -38,13 +38,17 @@ var UserJobs = React.createClass({
   },
 
   render() {
+    var jobbies = function(jobs) {
+      var jobsArr = [];
+      for (var job in jobs) {
+        jobsArr.push(<li key={job}>{jobs[job].name}</li>);
+      }
+      return(jobsArr);
+    };
+
     return (
       <ul>
-        {this.state.jobs.map((job) => {
-          return (
-            <li key={job.id}>{job.name}</li>
-          );
-        })}
+        {jobbies(this.state.jobs)}
       </ul>
     );
   }
