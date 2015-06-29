@@ -1,5 +1,5 @@
 var alt = require('../alt');
-var JobsFetcher = require('../utils/JobsFetcher');
+var JobSource = require('../sources/JobSource');
 
 class JobActions {
   updateJobs(jobs) {
@@ -9,7 +9,7 @@ class JobActions {
   fetchJobs() {
     this.dispatch();
 
-    JobsFetcher.fetch()
+    JobSource.fetch()
       .then((jobs) => {
         this.actions.updateJobs(jobs);
       })
@@ -20,6 +20,26 @@ class JobActions {
 
   jobsFailed(errorMessage) {
     this.dispatch(errorMessage);
+  }
+
+  createJob(text) {
+    text = text.trim()
+    if (text === '') {
+      return false
+    }
+    // hand waving of course.
+    var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
+    var jobObj = {
+      id: id,
+      name: text
+    };
+
+    this.dispatch(jobObj);
+    JobSource.push(jobObj)
+     .then((jobs) => {
+       //console.table(jobs);
+       //this.actions.handleUpdateJobs(jobs);
+     });
   }
 }
 
