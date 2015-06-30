@@ -46,6 +46,7 @@ class UserStore {
             console.log(err);
           } else {
             console.log('data saved successfully!');
+            this.handleUpdateUser(user);
           }
 
         });
