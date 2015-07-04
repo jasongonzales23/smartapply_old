@@ -21,16 +21,17 @@ var User = React.createClass({
 
   render() {
     var username = function(state) {
+
       if (state.user.facebook) {
-        return state.user.facebook.cachedUserProfile.first_name;
+        return `Sup ${state.user.facebook.cachedUserProfile.first_name}`;
       } else {
-        return "you"
+        return "Hi there, we're still trying to log you in, just a second please."
       }
     };
 
     return (
       <div>
-        <h2> Jobs for {username(this.state)}</h2>
+        <h2>{username(this.state)}</h2>
       </div>
     );
   }

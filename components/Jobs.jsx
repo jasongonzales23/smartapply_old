@@ -23,8 +23,8 @@ var Jobs = RequireAuth(class extends React.Component {
           <User />
         </AltContainer>
         <AltContainer store={JobStore}>
-          <UserJobs />
           <AddJob />
+          <UserJobs />
         </AltContainer>
       </div>
     );
