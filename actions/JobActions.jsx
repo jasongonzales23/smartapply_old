@@ -22,20 +22,11 @@ class JobActions {
     this.dispatch(errorMessage);
   }
 
-  createJob(text) {
-    text = text.trim()
-    if (text === '') {
-      return false
-    }
-    // hand waving of course.
+  createJob(job) {
     var id = (+new Date() + Math.floor(Math.random() * 999999)).toString(36)
-    var jobObj = {
-      id: id,
-      name: text
-    };
-
-    this.dispatch(jobObj);
-    JobSource.push(jobObj)
+    job.id = id;
+    this.dispatch(job);
+    JobSource.push(job);
   }
 }
 

@@ -8,18 +8,43 @@ var AddJob = React.createClass({
 
   getInitialState() {
     return {
-      value: this.props.value || ''
+      submitted: null,
+      errors: {}
     };
+  },
+
+  isValid() {
+    var fields = [ 'companyName', 'jobTitle'];
+    var errors = {};
+
+    fields.forEach( () => {
+      var value = trim(this.refs[field].getDOMNode().value);
+      if (!value) {
+        errors[field] = 'This field is required';
+        }
+    });
+
+    this.setState({errors: errors});
   },
 
   _save() {
     //do this to abstract what onSave does
     //this.props.onSave(this.state.value);
+    // TODO trim whitespace before saving
+    // TODO validate the form
+    var data = {
+      companyName: this.refs.companyName.getDOMNode().value,
+      jobTitle: this.refs.jobTitle.getDOMNode().value
+    };
 
-    JobActions.createJob(this.state.value);
+    JobActions.createJob(data);
+
+    /*
+    * TODO clear out the form fields
     this.setState({
       value: ''
     });
+    */
   },
 
   _onKeyDown() {
@@ -29,22 +54,33 @@ var AddJob = React.createClass({
   },
 
   _onChange(event) {
+    /*
     this.setState({
       value: event.target.value
     });
+    */
   },
 
   render() {
     return (
-      <div>
+      <div ref="jobForm">
         <input
           type="text"
-          name="add-job"
-          onChange={this._onChange}
+          ref="companyName"
+          name="companyName"
+          placeholder="Company"
           onKeyDown={this._onKeyDown}
-          value={this.state.value}
+          onChange={this._onChange}
          />
-        <button onKeyDown={this._onKeyDown}>Add Job</button>
+        <input
+          type="text"
+          ref="jobTitle"
+          name="jobTitle"
+          placeholder="Job Title"
+          onKeyDown={this._onKeyDown}
+          onChange={this._onChange}
+         />
+        <button onClick={this._save}>Add Job</button>
       </div>
     );
   }

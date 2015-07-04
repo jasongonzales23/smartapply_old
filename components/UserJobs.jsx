@@ -25,15 +25,22 @@ var UserJobs = React.createClass({
     var jobbies = function(jobs) {
       var jobsArr = [];
       for (var job in jobs) {
-        jobsArr.push(<li key={job}>{jobs[job].name}</li>);
+        jobsArr.push(
+          <div key={job} className="job">
+            <ul>
+              <li>Company: {jobs[job].companyName}</li>
+              <li>Job Title: {jobs[job].jobTitle}</li>
+            </ul>
+          </div>
+        );
       }
       return(jobsArr);
     };
 
     return (
-      <ul>
+      <div id="jobs">
         {jobbies(this.state.jobs)}
-      </ul>
+      </div>
     );
   }
 });
