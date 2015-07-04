@@ -1,10 +1,27 @@
 'use strict'
 var React = require('react');
+var Form = require('./Form');
 var JobStore = require('../stores/JobStore');
 var JobActions = require('../actions/JobActions');
 var ENTER_KEY_CODE = 13;
 
 var AddJob = React.createClass({
+  formFields() {
+    return [
+      {companyName: 'Company Name'},
+      {jobTitle: 'Job Title'},
+      {salaryLow: 'Salary Low'},
+      {salaryHigh: 'Salary High'},
+      {equityLow: 'Equity Low'},
+      {equityHigh: 'Equity High'},
+      {siteUsed: 'Site Used'},
+      {resumeUsed: 'Resume Used'},
+      {coverLetterUsed: 'Cover Letter Used'},
+      {notes: 'Notes'},
+      {applicationDate: 'Application Date'},
+      {currentStatus: 'Current Status'}
+    ]
+  },
 
   getInitialState() {
     return {
@@ -14,10 +31,11 @@ var AddJob = React.createClass({
   },
 
   isValid() {
+    //TODO, use my formFields obj instead
     var fields = [ 'companyName', 'jobTitle'];
     var errors = {};
 
-    fields.forEach( () => {
+    fields.forEach( (field) => {
       var value = trim(this.refs[field].getDOMNode().value);
       if (!value) {
         errors[field] = 'This field is required';
@@ -32,17 +50,18 @@ var AddJob = React.createClass({
     //this.props.onSave(this.state.value);
     // TODO trim whitespace before saving
     // TODO validate the form
-    var data = {
-      companyName: this.refs.companyName.getDOMNode().value,
-      jobTitle: this.refs.jobTitle.getDOMNode().value
-    };
+    var data = {};
+
+    this.formFields().forEach( (field) => {
+      var key = Object.keys(field);
+      data[key] = this.refs[key].getDOMNode().value;
+    });
 
     JobActions.createJob(data);
 
     /*
     * TODO clear out the form fields
     this.setState({
-      value: ''
     });
     */
   },
@@ -64,22 +83,18 @@ var AddJob = React.createClass({
   render() {
     return (
       <div ref="jobForm">
-        <input
-          type="text"
-          ref="companyName"
-          name="companyName"
-          placeholder="Company"
-          onKeyDown={this._onKeyDown}
-          onChange={this._onChange}
-         />
-        <input
-          type="text"
-          ref="jobTitle"
-          name="jobTitle"
-          placeholder="Job Title"
-          onKeyDown={this._onKeyDown}
-          onChange={this._onChange}
-         />
+        {Form.renderTextInput('companyName', 'Company Name')}
+        {Form.renderTextInput('jobTitle', 'Job Title')}
+        {Form.renderTextInput('salaryLow', 'Salary Low')}
+        {Form.renderTextInput('salaryHigh', 'Salary High')}
+        {Form.renderTextInput('equityLow', 'Equity Low')}
+        {Form.renderTextInput('equityHigh', 'Equity High')}
+        {Form.renderTextInput('siteUsed', 'Site Used')}
+        {Form.renderTextInput('resumeUsed', 'Resume Used')}
+        {Form.renderTextInput('coverLetterUsed', 'Cover Letter Used')}
+        {Form.renderTextInput('notes', 'Notes')}
+        {Form.renderTextInput('applicationDate', 'Application Date')}
+        {Form.renderTextInput('currentStatus', 'Current Status')}
         <button onClick={this._save}>Add Job</button>
       </div>
     );
