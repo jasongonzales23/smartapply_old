@@ -4,44 +4,12 @@ var Router = require('react-router');
 var { Route, DefaultRoute, RouteHandler, Link } = Router;
 var RequireAuth = require('./RequireAuth');
 
+var User = require('./User.jsx');
+
 var AltContainer = require('alt/AltContainer');
 var UserStore = require('../stores/UserStore');
 var JobStore = require('../stores/JobStore');
 var JobActions = require('../actions/JobActions');
-
-var User = React.createClass({
-  getInitialState() {
-    return UserStore.getState();
-  },
-
-  componentDidMount() {
-    UserStore.listen(this.onChange);
-  },
-
-  componentWillUnmount() {
-    UserStore.unlisten(this.onChange);
-  },
-
-  onChange(state) {
-    this.setState(state);
-  },
-
-  render() {
-    var username = function(state) {
-      if (state.user.facebook) {
-        return state.user.facebook.cachedUserProfile.first_name;
-      } else {
-        return "you"
-      }
-    };
-
-    return (
-      <div>
-        <h2> Jobs for {username(this.state)}</h2>
-      </div>
-    );
-  }
-});
 
 var UserJobs = React.createClass({
   getInitialState() {
