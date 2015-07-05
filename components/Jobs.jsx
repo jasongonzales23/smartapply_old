@@ -18,13 +18,27 @@ var Jobs = RequireAuth(class extends React.Component {
   render () {
     return (
       <div>
-        <Link to="login">Login</Link>
-        <AltContainer store={UserStore}>
-          <User />
-        </AltContainer>
+        <nav className="navbar navbar-default">
+          <div className="container">
+            <div className="navbar-header">
+              <a className="navbar-brand" href="/">
+                smartapply
+              </a>
+            </div>
+
+            <div className="navbar-text navbar-right">
+              <AltContainer store={UserStore}>
+                <User />
+              </AltContainer>
+            </div>
+
+          </div>
+        </nav>
         <AltContainer store={JobStore}>
-          <AddJob />
-          <UserJobs />
+          <div className="container">
+            <AddJob />
+            <UserJobs />
+          </div>
         </AltContainer>
       </div>
     );

@@ -82,7 +82,7 @@ var AddJob = React.createClass({
 
   render() {
     return (
-      <div ref="jobForm" className="form-horizontal">
+      <div ref="jobForm" className="clearfix form-horizontal">
         {Form.renderTextInput('companyName', 'Company Name')}
         {Form.renderTextInput('jobTitle', 'Job Title')}
         {Form.renderTextInput('salaryLow', 'Salary Low')}
@@ -97,7 +97,7 @@ var AddJob = React.createClass({
         {Form.renderTextInput('currentStatus', 'Current Status')}
         <div className="col-md-6 col-md-offset-4">
           <div className="form-group">
-            <button className="btn btn-lg btn-primary" onClick={this._save}>Add Job</button>
+            <button className="btn btn-lg btn-primary pull-right" onClick={this._save}>Add Job</button>
           </div>
         </div>
       </div>

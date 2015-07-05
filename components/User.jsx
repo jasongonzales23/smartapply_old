@@ -31,7 +31,7 @@ var User = React.createClass({
 
     return (
       <div>
-        <h2>{username(this.state)}</h2>
+        {username(this.state)}
       </div>
     );
   }
