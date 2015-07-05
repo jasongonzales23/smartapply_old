@@ -20,7 +20,7 @@ var AddJob = React.createClass({
       {notes: 'Notes'},
       {applicationDate: 'Application Date'},
       {currentStatus: 'Current Status'}
-    ]
+    ];
   },
 
   getInitialState() {
